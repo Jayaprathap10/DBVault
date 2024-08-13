@@ -3,15 +3,19 @@ session_start();
 require 'server.php';
 
 // Ensure the user is logged in
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['username']) || !isset($_SESSION['password'])) {
     header('Location: index.php');
     exit();
 }
 
 $username = $_SESSION['username'];
+$password = $_SESSION['password'];
 
-// Fetch the encrypted data from the database for the logged-in user
-$query = "SELECT encrypted_data, encryption_key FROM user_data WHERE username=?";
+// Derive the encryption key using the password
+$encryptionKey = deriveKey($password);
+
+// Fetch the encrypted data from the database
+$query = "SELECT encrypted_data FROM user_data WHERE username=?";
 $stmt = mysqli_prepare($db, $query);
 mysqli_stmt_bind_param($stmt, "s", $username);
 mysqli_stmt_execute($stmt);
@@ -21,7 +25,6 @@ $dataList = [];
 
 while ($row = mysqli_fetch_assoc($result)) {
     $encryptedData = $row['encrypted_data'];
-    $encryptionKey = base64_decode($row['encryption_key']);
     $decryptedData = decryptData($encryptedData, $encryptionKey);
     $dataList[] = $decryptedData;
 }
