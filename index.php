@@ -1,47 +1,59 @@
-<?php 
-  session_start(); 
+<?php
+session_start();
+require 'server.php';
 
-  if (!isset($_SESSION['username'])) {
-  	$_SESSION['msg'] = "You must log in first";
-  	header('location: login.php');
-  }
-  if (isset($_GET['logout'])) {
-  	session_destroy();
-  	unset($_SESSION['username']);
-  	header("location: login.php");
-  }
+// Ensure the user is logged in
+if (!isset($_SESSION['username'])) {
+    header('Location: index.php');
+    exit();
+}
+
+$username = $_SESSION['username'];
+
+// Fetch the encrypted data from the database for the logged-in user
+$query = "SELECT encrypted_data, encryption_key FROM user_data WHERE username=?";
+$stmt = mysqli_prepare($db, $query);
+mysqli_stmt_bind_param($stmt, "s", $username);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+$dataList = [];
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $encryptedData = $row['encrypted_data'];
+    $encryptionKey = base64_decode($row['encryption_key']);
+    $decryptedData = decryptData($encryptedData, $encryptionKey);
+    $dataList[] = $decryptedData;
+}
+
+mysqli_stmt_close($stmt);
+
 ?>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Home</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
 </head>
 <body>
-
-<div class="header">
-	<h2>Home Page</h2>
-</div>
-	Welcome to my project page	
-<div class="content">
-  	<!-- notification message -->
-  	<?php if (isset($_SESSION['success'])) : ?>
-      <div class="error success" >
-      	<h3>
-          <?php 
-          	echo $_SESSION['success']; 
-          	unset($_SESSION['success']);
-          ?>
-      	</h3>
-      </div>
-  	<?php endif ?>
-
-    <!-- logged in user information -->
-    <?php  if (isset($_SESSION['username'])) : ?>
-    	<p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>
-    	<p> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
-    <?php endif ?>
-</div>
-
+    <h2>Welcome, <?php echo htmlspecialchars($username); ?>!</h2>
+    <a href="add.php">Add Data</a>
+    
+    <h3>Your Data:</h3>
+    <?php if (empty($dataList)): ?>
+        <p>No data found. Click the "Add Data" button to add some data.</p>
+    <?php else: ?>
+        <ul>
+            <?php foreach ($dataList as $data): ?>
+                <li><?php echo htmlspecialchars($data); ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+    
+    <form action="logout.php" method="post">
+        <button type="submit" name="logout">Logout</button>
+    </form>
 </body>
 </html>
