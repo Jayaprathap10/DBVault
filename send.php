@@ -90,8 +90,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <p>Hello,</p>
                         <p>$senderMail has sent you a message.</p>
                         <p>Access Key: <strong>$accessKey</strong></p>
-                        <p>Security Key: <strong>$securityKey</strong></p>
-                        <p>Use these keys to decrypt the message.</p>
+                        
+                        <p>Use this key to decrypt the message.</p>
                         <p>Regards,<br>CryptChat</p>
                     </body>
                     </html>
