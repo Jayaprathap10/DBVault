@@ -211,7 +211,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-group">
                 <label for="securityKey">Security Key:</label>
-                <input type="text" name="securityKey" id="securityKey" class="form-control" required>
+                <input type="password" name="securityKey" id="securityKey" class="form-control" required>
             </div>
 
             <div class="form-group">

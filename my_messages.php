@@ -135,9 +135,9 @@ $result_received = $stmt_received->get_result();
                     <tr>
                         <th>Access Key</th>
                         <th>Security Key</th>
-                        <th>Sender</th>
+                        <th>Receiver</th>
                         <th>Message</th>
-                        <th>Encrypted Message</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -154,9 +154,9 @@ $result_received = $stmt_received->get_result();
                         <tr>
                             <td><?php echo htmlspecialchars($row['access_key']); ?></td>
                             <td><?php echo htmlspecialchars($row['security_key']); ?></td>
-                            <td><?php echo htmlspecialchars($row['sender']); ?></td>
+                            <td><?php echo htmlspecialchars($row['receiver']); ?></td>
                             <td><?php echo htmlspecialchars($decryptedMessage); ?></td>
-                            <td><?php echo htmlspecialchars($row['encrypted_text']); ?></td>
+                            
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -172,7 +172,7 @@ $result_received = $stmt_received->get_result();
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Access Key</th>
+                        
                         <th>Sender</th>
                         <th>Encrypted Message</th>
                         <th>Decrypt</th>
@@ -181,7 +181,7 @@ $result_received = $stmt_received->get_result();
                 <tbody>
                     <?php while ($row = $result_received->fetch_assoc()) { ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($row['access_key']); ?></td>
+                            
                             <td><?php echo htmlspecialchars($row['sender']); ?></td>
                             <td><?php echo htmlspecialchars($row['encrypted_text']); ?></td>
                             <td>
@@ -214,7 +214,7 @@ $result_received = $stmt_received->get_result();
                     <form id="decryptForm" action="decrypt_message.php" method="POST">
                         <div class="form-group">
                             <label for="access_key">Access Key</label>
-                            <input type="text" class="form-control" id="access_key" name="access_key" required readonly>
+                            <input type="password" class="form-control" id="access_key" name="access_key" required >
                         </div>
                         <div class="form-group">
                             <label for="security_key">Security Key</label>
@@ -231,7 +231,7 @@ $result_received = $stmt_received->get_result();
 
     <script>
         function showDecryptModal(accessKey, encryptedText) {
-            document.getElementById('access_key').value = accessKey;
+            
             document.getElementById('encrypted_text').value = encryptedText;
             document.getElementById('modalMessage').innerHTML = ''; // Clear previous messages
             $('#decryptModal').modal('show');

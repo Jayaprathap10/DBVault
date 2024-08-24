@@ -210,12 +210,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . "?mail=" . urlencode($_GET["mail"]); ?>">
             <div class="form-group">
                 <label for="accessKey">Access Key:</label>
-                <input type="text" name="accessKey" id="accessKey" class="form-control" required>
+                <input type="password" name="accessKey" id="accessKey" class="form-control" required>
             </div>
 
             <div class="form-group">
                 <label for="securityKey">Security Key:</label>
-                <input type="text" name="securityKey" id="securityKey" class="form-control" required>
+                <input type="password" name="securityKey" id="securityKey" class="form-control" required>
             </div>
 
             <button type="submit" class="btn">Get Message</button>
