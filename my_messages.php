@@ -15,7 +15,7 @@ function convertNumericKeyToBinary($numericKey) {
     return substr($binaryKey, 0, 32); // Ensure it's 32 bytes
 }
 
-// Fetch sent messages
+// Fetch sent messages 
 $stmt_sent = $conn->prepare("SELECT * FROM messages WHERE sender = ?");
 $stmt_sent->bind_param("s", $email);
 $stmt_sent->execute();
