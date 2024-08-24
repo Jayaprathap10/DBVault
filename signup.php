@@ -24,8 +24,8 @@ function sanitizeInput($data) {
 // Function to validate password
 function validatePassword($password, $name) {
     $errors = [];
-    if (strlen($password) < 6 || strlen($password) > 8) {
-        $errors[] = "Password must be between 6 and 8 characters long";
+    if (strlen($password) < 8 || strlen($password) > 15) {
+        $errors[] = "Password must be between 8 and 15 characters long";
     }
     if (!preg_match("/[A-Z]/", $password)) {
         $errors[] = "Password must contain at least one uppercase letter";
