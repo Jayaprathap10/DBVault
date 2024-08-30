@@ -152,6 +152,8 @@ try {
             align-items: center;
             height: 100vh;
             margin: 0;
+            background-image: url('bg5.avif');
+            background-size: cover;
         }
 
         .container {

@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CryptChat - Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <video autoplay muted loop id="myVideo">
+  <source src="bg.mp4" type="video/mp4">
+</video>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,7 +21,16 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            
+            
         }
+        #myVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+}
 
         .main-container {
             border: 2px solid #007bff; 
@@ -27,7 +40,7 @@
             max-width: 500px; 
             background-color: #1a2a38;
             text-align: center;
-            animation: fadeIn 1s ease-in-out;
+            animation: fadeOut 1000s;
         }
 
         .main-container img {
@@ -76,12 +89,12 @@
             background-color: #117a8b;
         }    
 
-        @keyframes fadeIn {
+        @keyframes fadeOut {
             from {
-                opacity: 0;
+                opacity: 1;
             }
             to {
-                opacity: 1;
+                opacity: 0.8;
             }
         }
 
@@ -99,6 +112,7 @@
     </style>
 </head>
 <body>
+<div class="w3-container w3-center w3-animate-opacity">
     <div class="main-container">
         <img src="cryptchat.png" alt="CryptChat Logo">
         <h1>Welcome to CryptChat - Connect Securely</h1>
@@ -111,6 +125,7 @@
             </a>
         </div>
     </div>
+    </div> 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
